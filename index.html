@@ -45,7 +45,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(5,1,3,0.8) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(5,1,3,0.7) 100%);
     z-index: -1;
   }
 
@@ -90,14 +90,14 @@
     50% { opacity: 1; }
   }
 
-  /* Card Container */
+  /* Card Container - More Transparent */
   .card {
     width: 360px;
     max-width: 90vw;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.015); /* More transparent */
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(10px); /* Lowered blur slightly for deep transparency */
+    -webkit-backdrop-filter: blur(10px);
     border-radius: 24px;
     padding: 35px 25px 25px 25px;
     text-align: center;
@@ -106,21 +106,38 @@
     align-items: center;
     position: relative;
     z-index: 10;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
   }
 
-  /* Discord Ring Inspired Frame */
+  /* Discord Profile Decoration Frame */
   .pfp-container {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border-radius: 50%;
-    border: 4px solid rgba(0, 255, 204, 0.2);
-    box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
+    position: relative;
+    padding: 6px; /* Space for the animated element */
     display: inline-block;
-    transition: transform 0.3s ease;
   }
 
-  .pfp-container:hover {
-    transform: scale(1.03);
+  /* Animated Glowing Outer Ring Decoration */
+  .pfp-container::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    border-radius: 50%;
+    padding: 3px; 
+    background: linear-gradient(0deg, #00ffcc, #ab00ff, #00ffcc, #0077ff);
+    background-size: 400% 400%;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: profileRotate 6s linear infinite;
+    box-shadow: 0 0 15px rgba(0, 255, 204, 0.25);
+  }
+
+  @keyframes profileRotate {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
   }
 
   .pfp {
@@ -129,6 +146,7 @@
     border-radius: 50%;
     object-fit: cover;
     display: block;
+    border: 2px solid rgba(255, 255, 255, 0.1);
   }
 
   /* Display Name */
@@ -173,10 +191,10 @@
     opacity: 0.8;
   }
 
-  /* Enhanced Discord Nameplate */
+  /* Enhanced Discord Nameplate - Highly transparent styling */
   .discord-nameplate {
-    background: rgba(7, 8, 14, 0.4);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(7, 8, 14, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 16px;
     width: 100%;
     padding: 14px;
@@ -186,7 +204,6 @@
     margin-bottom: 25px;
     text-align: left;
     position: relative;
-    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
   }
 
   .discord-avatar-wrapper {
@@ -211,7 +228,7 @@
     height: 13px;
     border-radius: 50%;
     background-color: #23a55a;
-    border: 2.5px solid #0a070d;
+    border: 2.5px solid #060205;
   }
 
   .status-dot::after {
@@ -263,7 +280,7 @@
 
   .discord-status-text {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.75);
+    color: rgba(255, 255, 255, 0.8);
     font-weight: 400;
   }
 
@@ -295,7 +312,7 @@
 
   .social-icon svg {
     fill: #ffffff;
-    opacity: 0.6;
+    opacity: 0.5;
     width: 100%;
     height: 100%;
     transition: opacity 0.2s ease, filter 0.2s ease, fill 0.2s ease;
@@ -317,11 +334,11 @@
     align-items: center;
     gap: 6px;
     font-size: 13px;
-    color: rgba(255, 255, 255, 0.4);
+    color: rgba(255, 255, 255, 0.35);
   }
 
   .view-counter svg {
-    fill: rgba(255, 255, 255, 0.4);
+    fill: rgba(255, 255, 255, 0.35);
     width: 15px;
     height: 15px;
   }
@@ -336,14 +353,13 @@
 <div class="bg-darkener"></div>
 <canvas id="particle-canvas"></canvas>
 
-<!-- Background video linked to your bg.mp4 file -->
 <video loop id="bg-video" muted playsinline>
   <source src="bg.mp4" type="video/mp4">
 </video>
 
 <div class="card">
   
-  <!-- Profile Picture -->
+  <!-- Profile Picture with Animated Decoration Container -->
   <div class="pfp-container">
     <img class="pfp" src="pfp.png" alt="Profile Picture">  
   </div>
@@ -355,22 +371,22 @@
   <div class="sub-caption" style="opacity: 0.6; font-size: 13px; margin-bottom: 4px;">making impossible things possible</div>
   
   <div class="location">
-    <span>📍</span> Chandigarh , Sector 104
+    <span>📍</span> Chandigarh,  Sector 104
   </div>
 
-  <!-- Re-designed Modern Discord Nameplate -->
+  <!-- Re-designed Dynamic Discord Nameplate -->
   <div class="discord-nameplate">
     <div class="discord-avatar-wrapper">
       <img class="discord-mini-pfp" src="pfp.png" alt="Discord Avatar">
-      <div class="status-dot"></div>
+      <div class="status-dot" id="discord-status-dot"></div>
     </div>
     <div class="discord-info">
       <div class="discord-header-row">
         <div class="discord-username">itsme</div>
-        <div class="discord-live-tag">Connected</div>
+        <div class="discord-live-tag" id="discord-badge-text">Connected</div>
       </div>
-      <div class="discord-status-text">Playing Minecraft</div>
-      <div class="discord-last-online">Last online: Just now</div>
+      <div class="discord-status-text" id="discord-status-display">Loading activity...</div>
+      <div class="discord-last-online" id="discord-time-display">Last online: Just now</div>
     </div>
   </div>
 
@@ -404,6 +420,55 @@
 </div>
 
 <script>
+// Dynamic Context-Aware Discord Activity Engine
+function updateDiscordActivity() {
+  const statusDisplay = document.getElementById('discord-status-display');
+  const timeDisplay = document.getElementById('discord-time-display');
+  const statusDot = document.getElementById('discord-status-dot');
+  const badgeText = document.getElementById('discord-badge-text');
+
+  const currentHour = new Date().getHours();
+  
+  // 1. If it's daytime (9 AM to 4 PM), show College Status
+  if (currentHour >= 9 && currentHour < 16) {
+    statusDisplay.innerText = "Study Mode • Rn in College 🏛️";
+    timeDisplay.innerText = "Class hours active";
+    statusDot.style.backgroundColor = "#f0b232"; // Idle/Away color profile
+    statusDot.style.setProperty('--status-color', '#f0b232');
+    badgeText.innerText = "Away";
+    badgeText.style.color = "#f0b232";
+    badgeText.style.background = "rgba(240, 178, 50, 0.15)";
+  } else {
+    // 2. Off-hours: Select randomly from your gaming/sleeping routine
+    const activities = [
+      { text: "Playing Minecraft ⚔️", sub: "Exploring the Nether", dot: "#23a55a", badge: "Connected" },
+      { text: "Playing Roblox 🕹️", sub: "In-game right now", dot: "#23a55a", badge: "Connected" },
+      { text: "Playing Valorant 🎯", sub: "Competitive Match", dot: "#23a55a", badge: "Connected" },
+      { text: "Sleeping 💤", sub: "Do Not Disturb", dot: "#f23f43", badge: "DND" }
+    ];
+
+    // Pick a random status state
+    const choice = activities[Math.floor(Math.random() * activities.length)];
+    
+    statusDisplay.innerText = choice.text;
+    timeDisplay.innerText = choice.sub;
+    statusDot.style.backgroundColor = choice.dot;
+    
+    // Apply styling fixes to the indicator dot pulse animation color
+    if(choice.dot === "#f23f43") {
+      badgeText.style.color = "#f23f43";
+      badgeText.style.background = "rgba(242, 63, 67, 0.15)";
+    } else {
+      badgeText.style.color = "#23a55a";
+      badgeText.style.background = "rgba(35, 165, 106, 0.15)";
+    }
+    badgeText.innerText = choice.badge;
+  }
+}
+
+// Call activity system right away
+updateDiscordActivity();
+
 function handleViews() {
   let views = localStorage.getItem('profile_view_count');
   if (!views) {
@@ -482,7 +547,7 @@ function enterSite() {
   video.muted = false;
   video.volume = 0.4;
   video.play().catch(err => {
-    console.log("Autoplay prevented by system parameters.", err);
+    console.log("Autoplay context system warning handled.", err);
   });
 }
 </script>
