@@ -1,428 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RAJVEER | Premium Dev Architect</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Poppins:wght@300;400;500;700&display=swap" rel="stylesheet">
-    
-    <style>
-        :root {
-            /* Ultra Pro Max Color Palette */
-            --bg-deep: #050509; /* Near Black Navy */
-            --bg-panel: rgba(255, 255, 255, 0.03); /* Glassmorphism Base */
-            --accent-blue: #00e5ff; /* Cyan Blue */
-            --accent-red: #ff0055; /* Crimson Red */
-            --text-main: #ffffff;
-            --text-muted: #aaaaaa;
-            --font-heading: 'Syncopate', sans-serif;
-            --font-body: 'Poppins', sans-serif;
-            --ease: cubic-bezier(0.23, 1, 0.32, 1); /* Ultra Smooth timing */
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile</title>
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-        /* --- Reset & Base --- */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            background-color: var(--bg-deep);
-            color: var(--text-main);
-            font-family: var(--font-body);
-            overflow-x: hidden;
-            position: relative;
-        }
+body {
+  overflow: hidden;
+  color: white;
+  background-color: #000;
+}
 
-        /* --- BACKGROUND KINETIC GRADIENT --- */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 10% 10%, rgba(0, 229, 255, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 90%, rgba(255, 0, 85, 0.08) 0%, transparent 40%);
-            z-index: -2;
-            animation: backgroundShift 20s infinite alternate linear;
-        }
+/* Background video styling */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  filter: brightness(0.4);
+}
 
-        @keyframes backgroundShift {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
+/* Guns.lol style entry screen */
+#enter-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
 
-        /* --- Modern Navigation --- */
-        header {
-            position: fixed;
-            top: 0; width: 100%;
-            padding: 20px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(5, 5, 9, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            z-index: 1000;
-        }
+#enter-screen h1 {
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
 
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            color: #fff;
-            letter-spacing: 2px;
-            position: relative;
-        }
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
 
-        .logo::before {
-            content: ''; position: absolute; bottom: -5px; left: 0;
-            width: 30px; height: 3px; background: var(--accent-red);
-        }
+/* Main profile container */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 30px;
+  width: 330px;
+  text-align: center;
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 0 20px rgba(0,0,0,0.7);
+}
 
-        nav ul { display: flex; list-style: none; gap: 30px; }
-        nav a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-size: 0.8rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            position: relative;
-        }
+/* Floating profile pic */
+.pfp {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.2);
+  animation: float 3s ease-in-out infinite;
+}
 
-        nav a::after {
-            content: ''; position: absolute; bottom: -5px; left: 0;
-            width: 0%; height: 2px; background: var(--accent-blue);
-            transition: 0.3s var(--ease);
-        }
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
 
-        nav a:hover { color: var(--accent-blue); }
-        nav a:hover::after { width: 100%; }
+/* Username text */
+.name {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.5);
+}
 
-        /* --- THE CORE BOX STYLE (Used everywhere) --- */
-        .pro-box {
-            background: var(--bg-panel);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 12px;
-            padding: 40px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            transition: transform 0.3s var(--ease), border-color 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
+/* Bio text */
+.bio {
+  font-size: 14px;
+  opacity: 0.7;
+  margin-bottom: 20px;
+}
 
-        .pro-box::before { /* The 'Crazy' Gradient Overlay on hover */
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(0,229,255,0.1) 0%, rgba(255,0,85,0.05) 100%);
-            opacity: 0; transition: 0.5s; z-index: -1;
-        }
+/* Link buttons */
+.btn {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s ease;
+  font-size: 14px;
+  font-weight: 500;
+}
 
-        .pro-box:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: rgba(255,255,255,0.1);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
-
-        .pro-box:hover::before { opacity: 1; }
-
-        /* --- ENTRANCE ANIMATIONS (Reveal Class) --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(50px) scale(0.9);
-            transition: all 1s var(--ease);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-
-        /* Delay utilities for sequence animations */
-        .delay-1 { transition-delay: 0.2s; }
-        .delay-2 { transition-delay: 0.4s; }
-        .delay-3 { transition-delay: 0.6s; }
-
-        /* --- Section Styling --- */
-        .container {
-            padding: 150px 10%;
-            position: relative;
-        }
-
-        .section-title {
-            font-family: var(--font-heading);
-            font-size: 2.5rem;
-            margin-bottom: 80px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .section-title::after {
-            content: ''; position: absolute; bottom: -10px; left: 0;
-            width: 100%; height: 4px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-red));
-        }
-
-        /* --- HERO SECTION --- */
-        .hero {
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-        }
-
-        .hero-content h1 {
-            font-family: var(--font-heading);
-            font-size: clamp(2.5rem, 10vw, 6rem);
-            line-height: 1.1;
-            margin-bottom: 30px;
-            letter-spacing: -2px;
-        }
-
-        .hero-content h1 span {
-            color: var(--accent-blue);
-            text-shadow: 0 0 30px rgba(0, 229, 255, 0.5);
-        }
-
-        .hero-content p {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-            max-width: 600px;
-            margin: 0 auto 50px;
-            line-height: 1.8;
-        }
-
-        /* The Ultra Pro Button */
-        .pro-btn {
-            position: relative;
-            padding: 20px 60px;
-            background: transparent;
-            color: #fff;
-            border: none;
-            font-family: var(--font-heading);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            text-decoration: none;
-            overflow: hidden;
-            transition: 0.5s var(--ease);
-            z-index: 1;
-            display: inline-block;
-        }
-
-        .pro-btn::before { /* The default border/bg */
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: 2px solid #fff;
-            transition: 0.5s var(--ease); z-index: -1;
-        }
-
-        .pro-btn::after { /* The 'Crazy' Crimson fill */
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: var(--accent-red);
-            transition: 0.5s var(--ease); z-index: -2;
-        }
-
-        .pro-btn:hover::before { border-color: var(--accent-red); scale: 1.05; }
-        .pro-btn:hover::after { left: 0; }
-        .pro-btn:hover { box-shadow: 0 0 30px rgba(255, 0, 85, 0.5); }
-
-        /* --- Services Asymmetrical Grid --- */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-        }
-
-        .service-card h3 {
-            font-family: var(--font-heading);
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .service-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent-blue), var(--accent-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        /* --- About/Team Section (The "Alliance") --- */
-        .alliance-box {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .alliance-text h4 {
-            font-family: var(--font-heading);
-            color: var(--accent-blue);
-            margin-bottom: 15px;
-        }
-
-        /* --- Client Portfolio (Corporate Badges) --- */
-        .trusted-list {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .client-badge {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 15px 30px;
-            font-family: var(--font-heading);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            border-radius: 4px;
-            transition: 0.3s;
-        }
-
-        .client-badge:hover {
-            background: #fff;
-            color: var(--bg-deep);
-            transform: scale(1.1) rotate(-2deg);
-        }
-
-        /* --- Contact Footer --- */
-        footer {
-            padding: 100px 5%;
-            background: #020205;
-            text-align: center;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-        }
-
-        .contact-box {
-            max-width: 600px;
-            margin: 0 auto;
-            border: 2px solid var(--accent-blue);
-        }
-
-        .contact-details p {
-            margin: 20px 0;
-            font-size: 1.1rem;
-            color: var(--text-muted);
-        }
-
-        .contact-details span { color: var(--accent-blue); font-weight: 700;}
-
-        /* --- RESPONSIVE MIXINS --- */
-        @media (max-width: 900px) {
-            .services-grid, .alliance-box { grid-template-columns: 1fr; }
-            .hero-content h1 { font-size: 3rem; }
-            .container { padding: 100px 5%; }
-        }
-    </style>
+.btn:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.02);
+}
+</style>
 </head>
 <body>
 
-    <header>
-        <div class="logo">RAJVEER</div>
-        <nav>
-            <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">Alliance</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
+<div id="enter-screen" onclick="enterSite()">
+  <h1>[ Click to Enter ]</h1>
+</div>
 
-    <section id="home" class="hero container">
-        <div class="hero-content reveal active">
-            <h1>ENGINEERING <br><span>DIGITAL</span> CHAOS</h1>
-            <p>I am Rajveer. Architect of complex 🤖 Custom Bot Infrastructure and Elite 🖥️ Server Ecosystems. Specializing in high-performance, logic-driven scaling.</p>
-            <a href="#contact" class="pro-btn">Initialize Protocol</a>
-        </div>
-    </section>
+<video loop id="bg-video" muted playsinline>
+  <source src="bg.mp4" type="video/mp4">
+</video>
 
-    <section id="services" class="container">
-        <h2 class="section-title reveal"><span>Core Protocols</span></h2>
-        <div class="services-grid">
-            
-            <div class="service-card pro-box reveal delay-1">
-                <div class="service-icon">🤖</div>
-                <h3>Bot Architecture</h3>
-                <p>Developing scalable, high-concurrency bot solutions using modern Python/Node.js frameworks. Secure, efficient API integration.</p>
-            </div>
-            
-            <div class="service-card pro-box reveal delay-2">
-                <div class="service-icon">🖥️</div>
-                <h3>Server Ecosystems</h3>
-                <p>Enterprise-grade server optimization. Logic-based permission structures, channel architecture, and high-load performance management.</p>
-            </div>
-            
-            <div class="service-card pro-box reveal delay-3">
-                <div class="service-icon">⚡</div>
-                <h3>System Refactoring</h3>
-                <p>Auditing existing legacy systems. Optimizing code base and server structures to maximize efficiency and reduce latency.</p>
-            </div>
+<div class="card">
+  <img class="pfp" src="pfp.png">  
+  <div class="name">@YourName</div>
+  <div class="bio">"insert your bio vibe here"</div>
 
-        </div>
-    </section>
+  <a class="btn" href="https://discord.com" target="_blank">Discord</a>
+  <a class="btn" href="https://instagram.com" target="_blank">Instagram</a>
+  <a class="btn" href="https://youtube.com" target="_blank">YouTube</a>
+</div>
 
-    <section id="about" class="container">
-        <div class="pro-box alliance-box reveal">
-            <div class="alliance-text">
-                <h2 class="section-title" style="font-size: 2rem;"><span>Strategic Alliance</span></h2>
-                <p style="color: var(--text-muted); line-height: 1.8; margin-bottom: 20px;">When projects demand full-stack deployment or massive-scale architecture, I activate my partnership network.</p>
-                <div class="pro-box" style="padding: 20px; border-left: 4px solid var(--accent-red);">
-                    <h4>Operator: SkidDai</h4>
-                    <p style="font-size: 0.9rem; color: var(--text-muted);">An elite developer matching my technical rigor. Our combined workflow executes full-stack solutions that standard teams cannot manage.</p>
-                </div>
-            </div>
-            <div style="text-align: center;">
-                <div style="font-family: var(--font-heading); font-size: 3rem; color: #fff;">RAJVEER<br><span style="color:var(--accent-red);">+</span><br>SKIDDAI</div>
-            </div>
-        </div>
-    </section>
+<script>
+function enterSite() {
+  const enterScreen = document.getElementById("enter-screen");
+  const video = document.getElementById("bg-video");
 
-    <section id="trusted" class="container reveal" style="background: #030307;">
-        <h2 class="section-title"><span>Verified Clients</span></h2>
-        <div class="trusted-list">
-            <div class="client-badge reveal delay-1">H4RDIKPLAYZZ</div>
-            <div class="client-badge reveal delay-2">CALCOUM PLAYZZ</div>
-            <div class="client-badge reveal delay-3">STROMYT</div>
-            <div class="client-badge reveal delay-1">...And Many More</div>
-        </div>
-    </section>
+  // 1. Hide the splash entry screen
+  enterScreen.style.opacity = "0";
+  setTimeout(() => {
+    enterScreen.style.visibility = "hidden";
+  }, 800);
 
-    <footer id="contact">
-        <div class="contact-box pro-box reveal">
-            <h2 class="section-title" style="font-size: 2rem;"><span>Establish Connection</span></h2>
-            <div class="contact-details">
-                <p>Direct Protocol (Discord): <span>rajveerxentity</span></p>
-                <p>Secure Mail: <span>rajveer5152singh@gmail.com</span></p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 100; // How many pixels until the element reveals
-
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-
-        window.addEventListener("scroll", reveal);
-        // To check the scroll position on page load
-        reveal();
-    </script>
+  // 2. Unmute and Play the video with its audio track simultaneously
+  video.muted = false;
+  video.volume = 0.5; // Sets volume to 50%
+  video.play().catch(err => {
+    console.log("Video failed to play. Ensure the user interacted with the page:", err);
+  });
+}
+</script>
 
 </body>
 </html>
