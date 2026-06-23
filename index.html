@@ -36,7 +36,7 @@
     z-index: -2;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    filter: brightness(0.35) contrast(1.1);
+    filter: brightness(0.4) contrast(1.1);
   }
 
   .bg-darkener {
@@ -45,11 +45,11 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(5,1,3,0.7) 100%);
+    background: radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(5,1,3,0.65) 100%);
     z-index: -1;
   }
 
-  /* Canvas layer for custom snowflake particles */
+  /* Canvas layer for particle system */
   #particle-canvas {
     position: fixed;
     top: 0;
@@ -90,15 +90,15 @@
     50% { opacity: 1; }
   }
 
-  /* Card Container - More Transparent */
+  /* Ultimate Transparent Card Frame */
   .card {
-    width: 360px;
+    width: 370px;
     max-width: 90vw;
-    background: rgba(255, 255, 255, 0.015); /* More transparent */
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(10px); /* Lowered blur slightly for deep transparency */
-    -webkit-backdrop-filter: blur(10px);
-    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.01); /* Maximum transparency */
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border-radius: 28px;
     padding: 35px 25px 25px 25px;
     text-align: center;
     display: flex;
@@ -106,47 +106,87 @@
     align-items: center;
     position: relative;
     z-index: 10;
-    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
   }
 
-  /* Discord Profile Decoration Frame */
-  .pfp-container {
-    margin-bottom: 20px;
-    border-radius: 50%;
+  /* DJ Audio Equalizer & Avatar Decoration */
+  .pfp-wrapper {
     position: relative;
-    padding: 6px; /* Space for the animated element */
-    display: inline-block;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
   }
 
-  /* Animated Glowing Outer Ring Decoration */
-  .pfp-container::before {
-    content: '';
+  /* Neo-glowing Audio Ring Ring */
+  .pfp-glow-ring {
     position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
+    width: 124px;
+    height: 124px;
     border-radius: 50%;
-    padding: 3px; 
-    background: linear-gradient(0deg, #00ffcc, #ab00ff, #00ffcc, #0077ff);
-    background-size: 400% 400%;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    animation: profileRotate 6s linear infinite;
-    box-shadow: 0 0 15px rgba(0, 255, 204, 0.25);
+    border: 2px dashed rgba(0, 255, 204, 0.4);
+    animation: spinRing 20s linear infinite;
+    box-shadow: 0 0 20px rgba(0, 255, 204, 0.1);
   }
 
-  @keyframes profileRotate {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+  @keyframes spinRing {
+    100% { transform: rotate(360deg); }
   }
+
+  /* DJ Equalizer Bars System */
+  .eq-container {
+    position: absolute;
+    width: 140px;
+    height: 140px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .eq-bar {
+    position: absolute;
+    bottom: 50%;
+    width: 3px;
+    height: 12px;
+    background: linear-gradient(to top, #00ffcc, #ab00ff);
+    border-radius: 2px;
+    transform-origin: bottom center;
+    opacity: 0.7;
+  }
+
+  /* Dynamic Beat Bounce classes controlled by entry script */
+  .beating .eq-bar {
+    animation: djBeat 0.6s ease-in-out infinite alternate;
+  }
+
+  @keyframes djBeat {
+    0% { transform: scaleY(1) translateY(0); filter: hue-rotate(0deg); }
+    100% { transform: scaleY(3.2) translateY(-2px); filter: hue-rotate(90deg); opacity: 1; }
+  }
+
+  /* Position Equalizer bars in a clean sound circle array */
+  .eq-bar:nth-child(1) { transform: rotate(0deg) translateY(-64px); animation-delay: 0.1s; }
+  .eq-bar:nth-child(2) { transform: rotate(36deg) translateY(-64px); animation-delay: 0.4s; }
+  .eq-bar:nth-child(3) { transform: rotate(72deg) translateY(-64px); animation-delay: 0.2s; }
+  .eq-bar:nth-child(4) { transform: rotate(108deg) translateY(-64px); animation-delay: 0.5s; }
+  .eq-bar:nth-child(5) { transform: rotate(144deg) translateY(-64px); animation-delay: 0.3s; }
+  .eq-bar:nth-child(6) { transform: rotate(180deg) translateY(-64px); animation-delay: 0.6s; }
+  .eq-bar:nth-child(7) { transform: rotate(216deg) translateY(-64px); animation-delay: 0.15s; }
+  .eq-bar:nth-child(8) { transform: rotate(252deg) translateY(-64px); animation-delay: 0.45s; }
+  .eq-bar:nth-child(9) { transform: rotate(288deg) translateY(-64px); animation-delay: 0.25s; }
+  .eq-bar:nth-child(10) { transform: rotate(324deg) translateY(-64px); animation-delay: 0.35s; }
 
   .pfp {
-    width: 110px;
-    height: 110px;
+    width: 106px;
+    height: 106px;
     border-radius: 50%;
     object-fit: cover;
-    display: block;
-    border: 2px solid rgba(255, 255, 255, 0.1);
+    z-index: 2;
+    border: 3px solid rgba(255, 255, 255, 0.08);
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
   }
 
   /* Display Name */
@@ -156,27 +196,28 @@
     color: #ffffff;
     letter-spacing: 0.5px;
     margin-bottom: 4px;
-    text-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+    text-shadow: 0px 4px 12px rgba(0, 0, 0, 0.6);
   }
 
   /* Status Badge Element */
   .badge {
-    background: rgba(0, 255, 204, 0.1);
+    background: rgba(0, 255, 204, 0.08);
     color: #00ffcc;
-    padding: 4px 12px;
+    padding: 4px 14px;
     border-radius: 50px;
     font-size: 10px;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 2px;
     margin-bottom: 15px;
-    border: 1px solid rgba(0, 255, 204, 0.2);
+    border: 1px solid rgba(0, 255, 204, 0.25);
+    box-shadow: 0 0 10px rgba(0, 255, 204, 0.1);
   }
 
   /* Dynamic Bio Sub-captions */
   .sub-caption {
     font-size: 14px;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(255, 255, 255, 0.85);
     margin-bottom: 6px;
     font-weight: 400;
   }
@@ -191,11 +232,11 @@
     opacity: 0.8;
   }
 
-  /* Enhanced Discord Nameplate - Highly transparent styling */
+  /* Highly Transparent Crystal Discord Nameplate */
   .discord-nameplate {
-    background: rgba(7, 8, 14, 0.25);
+    background: rgba(255, 255, 255, 0.02);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 16px;
+    border-radius: 18px;
     width: 100%;
     padding: 14px;
     display: flex;
@@ -204,6 +245,7 @@
     margin-bottom: 25px;
     text-align: left;
     position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   }
 
   .discord-avatar-wrapper {
@@ -237,7 +279,7 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: #23a55a;
+    background-color: inherit;
     animation: status-pulse 2s infinite ease-in-out;
     z-index: -1;
     top: 0;
@@ -246,7 +288,7 @@
 
   @keyframes status-pulse {
     0% { transform: scale(1); opacity: 1; }
-    100% { transform: scale(1.8); opacity: 0; }
+    100% { transform: scale(1.9); opacity: 0; }
   }
 
   .discord-info {
@@ -271,7 +313,7 @@
     font-size: 9px;
     background: rgba(35, 165, 90, 0.15);
     color: #23a55a;
-    padding: 1px 5px;
+    padding: 1px 6px;
     border-radius: 4px;
     font-weight: 600;
     text-transform: uppercase;
@@ -280,7 +322,7 @@
 
   .discord-status-text {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.8);
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 400;
   }
 
@@ -312,20 +354,20 @@
 
   .social-icon svg {
     fill: #ffffff;
-    opacity: 0.5;
+    opacity: 0.45;
     width: 100%;
     height: 100%;
     transition: opacity 0.2s ease, filter 0.2s ease, fill 0.2s ease;
   }
 
   .social-icon:hover {
-    transform: scale(1.2);
+    transform: scale(1.22);
   }
 
   .social-icon:hover svg {
     opacity: 1;
     fill: #00ffcc;
-    filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.6));
+    filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.7));
   }
 
   /* View Counter System Design */
@@ -359,8 +401,21 @@
 
 <div class="card">
   
-  <!-- Profile Picture with Animated Decoration Container -->
-  <div class="pfp-container">
+  <!-- Interactive Sound system DJ Equalizer Decoration -->
+  <div class="pfp-wrapper">
+    <div class="pfp-glow-ring"></div>
+    <div class="eq-container" id="eq-mesh">
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+      <div class="eq-bar"></div>
+    </div>
     <img class="pfp" src="pfp.png" alt="Profile Picture">  
   </div>
 
@@ -371,10 +426,10 @@
   <div class="sub-caption" style="opacity: 0.6; font-size: 13px; margin-bottom: 4px;">making impossible things possible</div>
   
   <div class="location">
-    <span>📍</span> Chandigarh,  Sector 104
+    <span>📍</span> Chandigarh,  Sectore 104
   </div>
 
-  <!-- Re-designed Dynamic Discord Nameplate -->
+  <!-- Crystal Discord Nameplate Component -->
   <div class="discord-nameplate">
     <div class="discord-avatar-wrapper">
       <img class="discord-mini-pfp" src="pfp.png" alt="Discord Avatar">
@@ -385,8 +440,8 @@
         <div class="discord-username">itsme</div>
         <div class="discord-live-tag" id="discord-badge-text">Connected</div>
       </div>
-      <div class="discord-status-text" id="discord-status-display">Loading activity...</div>
-      <div class="discord-last-online" id="discord-time-display">Last online: Just now</div>
+      <div class="discord-status-text" id="discord-status-display">Syncing with IST...</div>
+      <div class="discord-last-online" id="discord-time-display">Locating presence</div>
     </div>
   </div>
 
@@ -420,54 +475,56 @@
 </div>
 
 <script>
-// Dynamic Context-Aware Discord Activity Engine
-function updateDiscordActivity() {
+// Time-aware Status Logic mapped exactly to India Standard Time (IST)
+function calculateIndiaStatus() {
   const statusDisplay = document.getElementById('discord-status-display');
   const timeDisplay = document.getElementById('discord-time-display');
   const statusDot = document.getElementById('discord-status-dot');
   const badgeText = document.getElementById('discord-badge-text');
 
-  const currentHour = new Date().getHours();
-  
-  // 1. If it's daytime (9 AM to 4 PM), show College Status
-  if (currentHour >= 9 && currentHour < 16) {
-    statusDisplay.innerText = "Study Mode • Rn in College 🏛️";
-    timeDisplay.innerText = "Class hours active";
-    statusDot.style.backgroundColor = "#f0b232"; // Idle/Away color profile
-    statusDot.style.setProperty('--status-color', '#f0b232');
-    badgeText.innerText = "Away";
+  // Convert current system clock accurately to India Standard Time (UTC +5:30)
+  const localTime = new Date();
+  const utcTime = localTime.getTime() + (localTime.getTimezoneOffset() * 60000);
+  const indiaTime = new Date(utcTime + (3600000 * 5.5));
+  const indiaHour = indiaTime.getHours();
+
+  // Scenario 1: Nighttime in India (11 PM to 6 AM) -> Sleeping
+  if (indiaHour >= 23 || indiaHour < 6) {
+    statusDisplay.innerText = "Sleeping 💤";
+    timeDisplay.innerText = "Do Not Disturb • AFK";
+    statusDot.style.backgroundColor = "#f23f43"; // Discord DND Red
+    badgeText.innerText = "DND";
+    badgeText.style.color = "#f23f43";
+    badgeText.style.background = "rgba(242, 63, 67, 0.15)";
+  } 
+  // Scenario 2: Daytime in India (9 AM to 4 PM) -> College
+  else if (indiaHour >= 9 && indiaHour < 16) {
+    statusDisplay.innerText = "Rn in College 🏛️";
+    timeDisplay.innerText = "Study Mode Active";
+    statusDot.style.backgroundColor = "#f0b232"; // Discord Idle Yellow
+    badgeText.innerText = "Idle";
     badgeText.style.color = "#f0b232";
     badgeText.style.background = "rgba(240, 178, 50, 0.15)";
-  } else {
-    // 2. Off-hours: Select randomly from your gaming/sleeping routine
-    const activities = [
-      { text: "Playing Minecraft ⚔️", sub: "Exploring the Nether", dot: "#23a55a", badge: "Connected" },
-      { text: "Playing Roblox 🕹️", sub: "In-game right now", dot: "#23a55a", badge: "Connected" },
-      { text: "Playing Valorant 🎯", sub: "Competitive Match", dot: "#23a55a", badge: "Connected" },
-      { text: "Sleeping 💤", sub: "Do Not Disturb", dot: "#f23f43", badge: "DND" }
+  } 
+  // Scenario 3: Off-hours -> Cycling dynamic games
+  else {
+    const games = [
+      { text: "Playing Minecraft ⚔️", sub: "Exploring Worlds" },
+      { text: "Playing Roblox 🕹️", sub: "Chilling out with friends" },
+      { text: "Playing Valorant 🎯", sub: "Competitive Matchmaking" }
     ];
-
-    // Pick a random status state
-    const choice = activities[Math.floor(Math.random() * activities.length)];
     
+    const choice = games[Math.floor(Math.random() * games.length)];
     statusDisplay.innerText = choice.text;
     timeDisplay.innerText = choice.sub;
-    statusDot.style.backgroundColor = choice.dot;
-    
-    // Apply styling fixes to the indicator dot pulse animation color
-    if(choice.dot === "#f23f43") {
-      badgeText.style.color = "#f23f43";
-      badgeText.style.background = "rgba(242, 63, 67, 0.15)";
-    } else {
-      badgeText.style.color = "#23a55a";
-      badgeText.style.background = "rgba(35, 165, 106, 0.15)";
-    }
-    badgeText.innerText = choice.badge;
+    statusDot.style.backgroundColor = "#23a55a"; // Discord Online Green
+    badgeText.innerText = "Online";
+    badgeText.style.color = "#23a55a";
+    badgeText.style.background = "rgba(35, 165, 90, 0.15)";
   }
 }
 
-// Call activity system right away
-updateDiscordActivity();
+calculateIndiaStatus();
 
 function handleViews() {
   let views = localStorage.getItem('profile_view_count');
@@ -483,8 +540,8 @@ handleViews();
 
 const canvas = document.getElementById('particle-canvas');
 const ctx = canvas.getContext('2d');
-
 let particles = [];
+
 function resizeCanvas() {
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
@@ -536,18 +593,21 @@ function animateParticles() {
 function enterSite() {
   const enterScreen = document.getElementById("enter-screen");
   const video = document.getElementById("bg-video");
+  const eqMesh = document.getElementById("eq-mesh");
 
   enterScreen.style.opacity = "0";
   setTimeout(() => {
     enterScreen.style.visibility = "hidden";
     initParticles();
     animateParticles();
+    // Kickstart high beat music visualizer elements on interaction click
+    eqMesh.classList.add("beating");
   }, 600);
 
   video.muted = false;
   video.volume = 0.4;
   video.play().catch(err => {
-    console.log("Autoplay context system warning handled.", err);
+    console.log("Audio pipeline initialized ready.", err);
   });
 }
 </script>
