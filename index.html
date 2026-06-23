@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>itsme - Profile</title>
-<link href="https://fonts.googleapis.com/css2?family=VT323&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   * {
     margin: 0;
@@ -36,7 +36,7 @@
     z-index: -2;
     transform: translate(-50%, -50%);
     object-fit: cover;
-    filter: brightness(0.4) contrast(1.1);
+    filter: brightness(0.35) contrast(1.1);
   }
 
   .bg-darkener {
@@ -45,7 +45,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: radial-gradient(circle, rgba(0,0,0,0.2) 0%, rgba(5,1,3,0.8) 100%);
     z-index: -1;
   }
 
@@ -67,7 +67,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000000;
+    background: #050103;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,8 +77,8 @@
   }
 
   #enter-screen h1 {
-    font-size: 24px;
-    letter-spacing: 4px;
+    font-size: 20px;
+    letter-spacing: 5px;
     text-transform: lowercase;
     color: #ffffff;
     font-family: monospace;
@@ -86,7 +86,7 @@
   }
 
   @keyframes blink {
-    0%, 100% { opacity: 0.2; }
+    0%, 100% { opacity: 0.3; }
     50% { opacity: 1; }
   }
 
@@ -94,24 +94,33 @@
   .card {
     width: 360px;
     max-width: 90vw;
-    background: transparent;
-    border-radius: 20px;
-    padding: 35px 25px 20px 25px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 35px 25px 25px 25px;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     z-index: 10;
+    box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
   }
 
   /* Discord Ring Inspired Frame */
   .pfp-container {
     margin-bottom: 15px;
     border-radius: 50%;
-    border: 4px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    border: 4px solid rgba(0, 255, 204, 0.2);
+    box-shadow: 0 0 25px rgba(0, 255, 204, 0.15);
     display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  .pfp-container:hover {
+    transform: scale(1.03);
   }
 
   .pfp {
@@ -124,7 +133,6 @@
 
   /* Display Name */
   .name {
-    font-family: 'Poppins', sans-serif;
     font-weight: 600;
     font-size: 32px;
     color: #ffffff;
@@ -135,19 +143,21 @@
 
   /* Status Badge Element */
   .badge {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 3px 10px;
+    background: rgba(0, 255, 204, 0.1);
+    color: #00ffcc;
+    padding: 4px 12px;
     border-radius: 50px;
-    font-size: 11px;
+    font-size: 10px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     margin-bottom: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(0, 255, 204, 0.2);
   }
 
   /* Dynamic Bio Sub-captions */
   .sub-caption {
-    font-size: 15px;
+    font-size: 14px;
     color: rgba(255, 255, 255, 0.9);
     margin-bottom: 6px;
     font-weight: 400;
@@ -156,27 +166,27 @@
   .location {
     font-size: 13px;
     color: #00ffcc;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     display: flex;
     align-items: center;
     gap: 4px;
+    opacity: 0.8;
   }
 
-  /* Discord Styled Status Nameplate Card */
+  /* Enhanced Discord Nameplate */
   .discord-nameplate {
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(7, 8, 14, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border-radius: 12px;
+    border-radius: 16px;
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 14px;
     margin-bottom: 25px;
     text-align: left;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    position: relative;
+    box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.05);
   }
 
   .discord-avatar-wrapper {
@@ -185,41 +195,82 @@
   }
 
   .discord-mini-pfp {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
   }
 
-  /* Status Indicator Dot */
+  /* Status Indicator Dot with Pulse */
   .status-dot {
     position: absolute;
-    bottom: -2px;
-    right: -2px;
-    width: 14px;
-    height: 14px;
+    bottom: -1px;
+    right: -1px;
+    width: 13px;
+    height: 13px;
     border-radius: 50%;
-    background-color: #23a55a; /* Discord Green Online Color */
-    border: 2px solid #050103;
+    background-color: #23a55a;
+    border: 2.5px solid #0a070d;
+  }
+
+  .status-dot::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #23a55a;
+    animation: status-pulse 2s infinite ease-in-out;
+    z-index: -1;
+    top: 0;
+    left: 0;
+  }
+
+  @keyframes status-pulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.8); opacity: 0; }
   }
 
   .discord-info {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    gap: 2px;
+  }
+
+  .discord-header-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
   }
 
   .discord-username {
     font-size: 14px;
     font-weight: 600;
     color: #ffffff;
-    line-height: 1.2;
+  }
+
+  .discord-live-tag {
+    font-size: 9px;
+    background: rgba(35, 165, 90, 0.15);
+    color: #23a55a;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
   }
 
   .discord-status-text {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.6);
-    margin-top: 2px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 400;
+  }
+
+  .discord-last-online {
+    font-size: 10px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 1px;
   }
 
   /* Social Links Grid */
@@ -233,8 +284,8 @@
   }
 
   .social-icon {
-    width: 32px;
-    height: 32px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,10 +295,10 @@
 
   .social-icon svg {
     fill: #ffffff;
-    opacity: 0.7;
+    opacity: 0.6;
     width: 100%;
     height: 100%;
-    transition: opacity 0.2s ease, filter 0.2s ease;
+    transition: opacity 0.2s ease, filter 0.2s ease, fill 0.2s ease;
   }
 
   .social-icon:hover {
@@ -256,7 +307,8 @@
 
   .social-icon:hover svg {
     opacity: 1;
-    filter: drop-shadow(0 0 8px #ffffff);
+    fill: #00ffcc;
+    filter: drop-shadow(0 0 6px rgba(0, 255, 204, 0.6));
   }
 
   /* View Counter System Design */
@@ -264,14 +316,14 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.4);
   }
 
   .view-counter svg {
-    fill: rgba(255, 255, 255, 0.5);
-    width: 16px;
-    height: 16px;
+    fill: rgba(255, 255, 255, 0.4);
+    width: 15px;
+    height: 15px;
   }
 </style>
 </head>
@@ -284,12 +336,14 @@
 <div class="bg-darkener"></div>
 <canvas id="particle-canvas"></canvas>
 
+<!-- Background video linked to your bg.mp4 file -->
 <video loop id="bg-video" muted playsinline>
-  <source src="1000043422.mp4" type="video/mp4">
+  <source src="bg.mp4" type="video/mp4">
 </video>
 
 <div class="card">
   
+  <!-- Profile Picture -->
   <div class="pfp-container">
     <img class="pfp" src="pfp.png" alt="Profile Picture">  
   </div>
@@ -298,20 +352,25 @@
   <div class="badge">DEVELOPER</div>
   
   <div class="sub-caption">developer gamer</div>
-  <div class="sub-caption" style="opacity: 0.6; font-size: 13px; margin-bottom: 6px;">making impossible things possible</div>
+  <div class="sub-caption" style="opacity: 0.6; font-size: 13px; margin-bottom: 4px;">making impossible things possible</div>
   
   <div class="location">
     <span>📍</span> Chandigarh , Sector 104
   </div>
 
+  <!-- Re-designed Modern Discord Nameplate -->
   <div class="discord-nameplate">
     <div class="discord-avatar-wrapper">
       <img class="discord-mini-pfp" src="pfp.png" alt="Discord Avatar">
       <div class="status-dot"></div>
     </div>
     <div class="discord-info">
-      <div class="discord-username">itsme</div>
-      <div class="discord-status-text">Active Now • Playing Minecraft</div>
+      <div class="discord-header-row">
+        <div class="discord-username">itsme</div>
+        <div class="discord-live-tag">Connected</div>
+      </div>
+      <div class="discord-status-text">Playing Minecraft</div>
+      <div class="discord-last-online">Last online: Just now</div>
     </div>
   </div>
 
@@ -372,10 +431,10 @@ class Particle {
   constructor() {
     this.x = Math.random() * canvas.width;
     this.y = Math.random() * canvas.height - canvas.height;
-    this.size = Math.random() * 3 + 1;
-    this.speedY = Math.random() * 1.5 + 0.5;
-    this.speedX = Math.random() * 1 - 0.5;
-    this.opacity = Math.random() * 0.5 + 0.2;
+    this.size = Math.random() * 2.5 + 1;
+    this.speedY = Math.random() * 1.2 + 0.4;
+    this.speedX = Math.random() * 0.8 - 0.4;
+    this.opacity = Math.random() * 0.4 + 0.2;
   }
   update() {
     this.y += this.speedY;
@@ -423,7 +482,7 @@ function enterSite() {
   video.muted = false;
   video.volume = 0.4;
   video.play().catch(err => {
-    console.log("Autoplay caught/prevented by web systems container.", err);
+    console.log("Autoplay prevented by system parameters.", err);
   });
 }
 </script>
