@@ -3,236 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>itsme - Profile</title>
+<title>buzzypie - Profile</title>
 <style>
-  :root {
-    --bg-red: #2a0813;
-    --neon-blue: #00f0ff;
-    --neon-red: #ff0055;
-    --lightning-glow: #ffffff;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
 
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
+body {
+  overflow: hidden;
+  color: white;
+  background-color: #000;
+}
 
-  body {
-    overflow: hidden;
-    color: white;
-    background-color: #050103;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: 'Arial Black', Gadget, sans-serif;
-  }
+/* Background video styling */
+#bg-video {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  /* Dark, ominous filtering matching the red/black vibe */
+  filter: brightness(0.3) contrast(1.2);
+}
 
-  /* Background video/image layer */
-  #bg-video {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -2;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    filter: brightness(0.15) contrast(1.5) saturate(1.2);
-  }
+/* Fallback gradient if video fails to load */
+.bg-fallback {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, rgba(60,4,4,1) 0%, rgba(0,0,0,1) 100%);
+  z-index: -2;
+}
 
-  .bg-fallback {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(40,5,15,1) 0%, rgba(5,0,2,1) 100%);
-    z-index: -3;
-  }
+/* Entry screen styling */
+#enter-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: opacity 0.8s ease, visibility 0.8s;
+}
 
-  /* Entry screen layer */
-  #enter-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #080104;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 100;
-    transition: opacity 0.5s ease, visibility 0.5s;
-  }
+#enter-screen h1 {
+  font-size: 24px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: pulse 2s infinite;
+}
 
-  #enter-screen h1 {
-    font-size: 1.3rem;
-    letter-spacing: 5px;
-    text-transform: uppercase;
-    color: var(--neon-blue);
-    text-shadow: 0 0 10px var(--neon-blue);
-    animation: pulse 1.5s infinite;
-  }
+@keyframes pulse {
+  0% { opacity: 0.4; }
+  50% { opacity: 1; }
+  100% { opacity: 0.4; }
+}
 
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
+/* Guns.lol style card layout from example 1 */
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 40px 30px;
+  width: 360px;
+  text-align: center;
+  /* Rich deep dark-purple/magenta aesthetic */
+  background: linear-gradient(135deg, rgba(74, 4, 38, 0.75) 0%, rgba(41, 2, 21, 0.9) 100%);
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
 
-  /* Compact, Screen-Safe Bio Card (Matches layout in 1000043419.jpg) */
-  .card {
-    width: 340px;
-    max-width: 90vw;
-    background: linear-gradient(145deg, #3d0516 0%, #170108 100%);
-    border-radius: 28px;
-    padding: 35px 25px 25px 25px;
-    text-align: center;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.8), 
-                inset 0 0 15px rgba(255, 0, 85, 0.2);
-    border: 1px solid rgba(255, 0, 85, 0.15);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-  }
+/* Circular profile container layout */
+.pfp-container {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 20px;
+}
 
-  /* White Neon Lightning Aura Border Container */
-  .pfp-wrapper {
-    position: relative;
-    width: 125px;
-    height: 125px;
-    margin-bottom: 20px;
-    border-radius: 50%;
-    /* Creates the intense bright white/blue electrical aura */
-    box-shadow: 0 0 20px 2px var(--lightning-glow),
-                0 0 35px 6px rgba(0, 240, 255, 0.4),
-                inset 0 0 10px rgba(0,0,0,0.8);
-    animation: lightning-flicker 4s infinite subpixel-linear;
-  }
+.pfp {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
 
-  @keyframes lightning-flicker {
-    0%, 100%, 40%, 43%, 85%, 87% { opacity: 1; filter: drop-shadow(0 0 2px #fff); }
-    41%, 86% { opacity: 0.85; filter: drop-shadow(0 0 0px #fff); }
-    42% { opacity: 0.95; }
-  }
+/* Distinctive glitch/distorted text appearance for 'buzzypie' username */
+.name {
+  font-family: 'Courier New', Courier, monospace; /* Fits the glitch aesthetic */
+  font-size: 32px;
+  font-weight: 900;
+  letter-spacing: -1px;
+  margin-bottom: 15px;
+  color: #fff;
+  text-shadow: 2px 2px 0px rgba(255, 0, 85, 0.5), -2px -2px 0px rgba(0, 200, 255, 0.5);
+  position: relative;
+}
 
-  .pfp-holder {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 3px solid #0f0105;
-  }
+/* Subtitle phrase */
+.sub-caption {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 30px;
+  color: rgba(255, 255, 255, 0.9);
+}
 
-  .pfp {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
+/* Inline horizontal social row with distinctive neon pink glow */
+.social-row {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
 
-  /* Sharp Glitch Username Style */
-  .name {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 44px;
-    font-weight: 900;
-    letter-spacing: 1px;
-    color: #fff;
-    text-transform: lowercase;
-    margin-bottom: 12px;
-    position: relative;
-    display: inline-block;
-    /* Static heavy red/blue horizontal shift glitch vibe */
-    text-shadow: -2px -1px 0 var(--neon-blue), 2px 1px 0 var(--neon-red);
-    animation: textGlitch 1.5s infinite steps(2);
-  }
+.social-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  filter: drop-shadow(0 0 8px rgba(255, 150, 190, 0.6));
+}
 
-  @keyframes textGlitch {
-    0%, 95% { text-shadow: -2px -1px 0 var(--neon-blue), 2px 1px 0 var(--neon-red); transform: skew(0deg); }
-    96% { text-shadow: -4px 2px 0 var(--neon-red), 3px -1px 0 var(--neon-blue); transform: skew(3deg); }
-    98% { text-shadow: 3px -3px 0 var(--neon-blue), -2px 3px 0 var(--neon-red); transform: skew(-3deg); }
-    100% { text-shadow: -2px -1px 0 var(--neon-blue), 2px 1px 0 var(--neon-red); transform: skew(0deg); }
-  }
+.social-icon svg {
+  fill: #ffb7d5; /* Soft glowing pinkish tone matching the screenshot */
+  width: 100%;
+  height: 100%;
+}
 
-  /* Sharp Tagline Style */
-  .sub-caption {
-    font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-    color: #eeeeee;
-    margin-bottom: 25px;
-    opacity: 0.9;
-    text-transform: none;
-    animation: caption-glow 2s infinite alternate;
-  }
+.social-icon:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 15px rgba(255, 100, 160, 0.9));
+}
 
-  @keyframes caption-glow {
-    0% { text-shadow: 0 0 2px rgba(255,255,255,0.3); }
-    100% { text-shadow: 0 0 8px var(--neon-red), 0 0 12px rgba(0, 240, 255, 0.5); }
-  }
+/* View Counter styling at the bottom left of card */
+.view-counter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  position: absolute;
+  bottom: 20px;
+  left: 25px;
+}
 
-  /* Social Dock Row Matching the screenshot style */
-  .social-dock {
-    display: flex;
-    gap: 22px;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 25px;
-  }
-
-  .social-icon {
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-  }
-
-  .social-icon svg {
-    fill: #ffffff;
-    opacity: 0.6;
-    width: 100%;
-    height: 100%;
-    /* Soft neon blur backing inspired by the image */
-    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.2));
-    transition: fill 0.2s, opacity 0.2s, filter 0.2s;
-  }
-
-  .social-icon:hover {
-    transform: scale(1.15);
-  }
-
-  .social-icon:hover svg {
-    opacity: 1;
-    fill: var(--neon-blue);
-    filter: drop-shadow(0 0 8px var(--neon-blue));
-  }
-
-  /* Footer Minimal View Counter */
-  .counter-badge {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    opacity: 0.5;
-    font-family: sans-serif;
-  }
-
-  .counter-badge svg {
-    fill: #ffffff;
-    width: 14px;
-    height: 14px;
-  }
-
-  .counter-badge .count-num {
-    font-weight: bold;
-  }
+.view-counter svg {
+  fill: rgba(255, 255, 255, 0.6);
+  width: 16px;
+  height: 16px;
+}
 </style>
 </head>
 <body>
@@ -247,28 +183,23 @@
   <source src="bg.mp4" type="video/mp4">
 </video>
 
-<!-- Perfectly Scaled Bio Box Template -->
 <div class="card">
   
-  <!-- Profile Picture Inside White Lightning Neon Ring -->
-  <div class="pfp-wrapper">
-    <div class="pfp-holder">
-      <img class="pfp" src="pfp.png" alt="Profile Picture">  
-    </div>
+  <div class="pfp-container">
+    <img class="pfp" src="pfp.png" alt="Profile Picture">  
   </div>
 
-  <!-- Profile Identity Stack -->
-  <div class="name">itsme</div>
-  <div class="sub-caption">chill gng</div>
+  <div class="name">buzzypie</div>
+  
+  <div class="sub-caption">Subscribe to Captain Playzz</div>
 
-  <!-- Horizontal Social Dock Icon Grid -->
-  <div class="social-dock">
+  <div class="social-row">
     <a class="social-icon" href="https://youtube.com" target="_blank" title="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 $.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
     </a>
     
     <a class="social-icon" href="https://instagram.com" target="_blank" title="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204 0.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
     </a>
     
     <a class="social-icon" href="https://discord.com" target="_blank" title="Discord">
@@ -276,10 +207,9 @@
     </a>
   </div>
 
-  <!-- Bottom Analytics Badge Info -->
-  <div class="counter-badge">
+  <div class="view-counter">
     <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-    <span class="count-num">3</span>
+    <span>3</span>
   </div>
 
 </div>
@@ -289,15 +219,17 @@ function enterSite() {
   const enterScreen = document.getElementById("enter-screen");
   const video = document.getElementById("bg-video");
 
+  // 1. Smooth Fade Out Splash
   enterScreen.style.opacity = "0";
   setTimeout(() => {
     enterScreen.style.visibility = "hidden";
-  }, 500);
+  }, 800);
 
+  // 2. Play Background Audio/Video tracks
   video.muted = false;
   video.volume = 0.4;
   video.play().catch(err => {
-    console.log("Media engine interaction handled.", err);
+    console.log("Video initialization playback handled safely.", err);
   });
 }
 </script>
