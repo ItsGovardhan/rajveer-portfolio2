@@ -5,239 +5,306 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>itsme - Profile</title>
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, sans-serif;
-}
+  :root {
+    --primary: #00ff78;
+    --accent: #ff60b0;
+    --bg-dark: #030305;
+  }
 
-body {
-  overflow: hidden;
-  color: white;
-  background-color: #030305;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  }
 
-/* Background video styling */
-#bg-video {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  min-width: 100%;
-  min-height: 100%;
-  object-fit: cover;
-  z-index: -1;
-  filter: brightness(0.25) contrast(1.3);
-}
+  body {
+    overflow: hidden;
+    color: white;
+    background-color: var(--bg-dark);
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-.bg-fallback {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(circle, rgba(30,3,15,1) 0%, rgba(0,0,0,1) 100%);
-  z-index: -2;
-}
+  /* Background video styling */
+  #bg-video {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -1;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    filter: brightness(0.2) contrast(1.4) saturate(0.8);
+  }
 
-/* Entry screen styling */
-#enter-screen {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  z-index: 10;
-  transition: opacity 0.8s ease, visibility 0.8s;
-}
+  .bg-fallback {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(20,4,15,1) 0%, rgba(0,0,0,1) 100%);
+    z-index: -2;
+  }
 
-#enter-screen h1 {
-  font-size: 24px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  animation: pulse 2s infinite;
-}
+  /* Entry screen styling */
+  #enter-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #050508;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 100;
+    transition: opacity 0.6s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.6s;
+  }
 
-@keyframes pulse {
-  0% { opacity: 0.4; }
-  50% { opacity: 1; }
-  100% { opacity: 0.4; }
-}
+  #enter-screen h1 {
+    font-size: 1.5rem;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(0, 255, 120, 0.5);
+    font-family: monospace;
+    animation: pulse 2s infinite;
+  }
 
-/* Ultra Premium Card Outer Frame Container */
-.card-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  padding: 6px;
-  border-radius: 40px;
-  background: linear-gradient(180deg, #5b5b66 0%, #1c1c24 30%, #441634 70%, #902d6d 100%);
-  box-shadow: 0 0 40px rgba(230, 30, 130, 0.35), inset 0 0 15px rgba(255, 255, 255, 0.1);
-}
+  @keyframes pulse {
+    0%, 100% { opacity: 0.3; transform: scale(0.98); }
+    50% { opacity: 1; transform: scale(1); }
+  }
 
-/* Internal Card Body */
-.card {
-  width: 370px;
-  height: 560px;
-  padding: 30px 25px;
-  text-align: center;
-  background: radial-gradient(circle at top, #2e081f 0%, #0d040a 60%, #15020f 100%);
-  border-radius: 35px;
-  position: relative;
-  overflow: visible;
-  border: 2px solid #141419;
-}
+  /* Ultra Premium Card Outer Frame Container */
+  .card-wrapper {
+    position: relative;
+    padding: 4px;
+    border-radius: 24px;
+    background: linear-gradient(135deg, #444 0%, #111 40%, #441634 70%, var(--accent) 100%);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(230, 30, 130, 0.15);
+    transition: transform 0.3s ease;
+    max-width: 90vw;
+  }
 
-/* Giant Custom Zoro Sword Magical Decoration Ring */
-.decor-wrap {
-  position: absolute;
-  top: -65px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 250px;
-  height: 250px;
-  z-index: 5;
-}
+  /* Internal Card Body */
+  .card {
+    width: 360px;
+    height: 520px;
+    padding: 40px 30px;
+    text-align: center;
+    background: linear-gradient(180deg, #0f030b 0%, #050106 100%);
+    border-radius: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+  }
 
-.zoro-ring {
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 12px rgba(0, 255, 120, 0.85));
-  animation: spinSlow 25s linear infinite;
-}
+  /* Profile Picture & Aura Container */
+  .pfp-container {
+    position: relative;
+    width: 140px;
+    height: 140px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
-@keyframes spinSlow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+  /* Futuristic Cyber Ring Frame surrounding Avatar */
+  .cyber-ring {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 2px dashed var(--primary);
+    box-shadow: 0 0 15px rgba(0, 255, 120, 0.4);
+    animation: rotateRing 20s linear infinite;
+  }
 
-/* PFP Inside the Center of Ring */
-.pfp-holder {
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 135px;
-  height: 135px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 4px solid #1b1c22;
-  box-shadow: 0 0 20px rgba(0,0,0,0.8);
-  z-index: 4;
-}
+  .cyber-ring::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border-radius: 50%;
+    border: 1px solid var(--accent);
+    opacity: 0.3;
+    animation: rotateRing 10s linear infinite reverse;
+  }
 
-.pfp {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  @keyframes rotateRing {
+    100% { transform: rotate(360deg); }
+  }
 
-/* Text & Content Elements spacing down due to high overlapping PFP */
-.content-area {
-  margin-top: 155px;
-}
+  .pfp-holder {
+    width: 116px;
+    height: 116px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #16161a;
+    box-shadow: 0 0 25px rgba(0,0,0,0.9);
+    z-index: 2;
+  }
 
-/* Username Style */
-.name {
-  font-size: 38px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  margin-bottom: 8px;
-  color: #fff;
-  text-shadow: 0 0 10px rgba(255,255,255,0.4);
-}
+  .pfp {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 
-/* New Tagline */
-.sub-caption {
-  font-size: 15px;
-  font-weight: 400;
-  letter-spacing: 0.5px;
-  margin-bottom: 45px;
-  color: rgba(255, 255, 255, 0.7);
-}
+  /* Content Layout */
+  .content-area {
+    width: 100%;
+    margin-top: 15px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 
-/* Custom Social Layout Dock Wrapper */
-.social-dock {
-  background: linear-gradient(180deg, rgba(0, 255, 130, 0.15) 0%, rgba(5, 15, 10, 0.6) 100%);
-  border: 2px solid #00ff78;
-  box-shadow: 0 0 15px rgba(0, 255, 120, 0.3);
-  border-radius: 20px;
-  padding: 12px 25px;
-  display: inline-flex;
-  gap: 25px;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 30px;
-}
+  /* Advanced Glitch Name Effect */
+  .name {
+    font-size: 42px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    color: #fff;
+    position: relative;
+    text-transform: uppercase;
+    display: inline-block;
+    margin: 0 auto 10px auto;
+    text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75),
+                -0.025em -0.05em 0 rgba(0, 255, 0, 0.75),
+                0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
+    animation: glitch 500ms infinite;
+  }
 
-.social-icon {
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.2s ease, filter 0.2s;
-}
+  .name span {
+    position: absolute;
+    top: 0; left: 0;
+  }
 
-.social-icon svg {
-  fill: #ff60b0;
-  width: 100%;
-  height: 100%;
-  filter: drop-shadow(0 0 5px rgba(255, 96, 176, 0.6));
-}
+  @keyframes glitch {
+    0% {
+      text-shadow: 1px 2px 0 rgba(255,0,0,.5), -2px -1px 0 rgba(0,255,0,.5), 2px 1px 0 rgba(0,0,255,.5);
+    }
+    15% {
+      text-shadow: -2px -2px 0 rgba(255,0,0,.5), 2px 2px 0 rgba(0,255,0,.5), -1px 2px 0 rgba(0,0,255,.5);
+    }
+    49% {
+      text-shadow: 1px 2px 0 rgba(255,0,0,.5), -2px -1px 0 rgba(0,255,0,.5), 2px 1px 0 rgba(0,0,255,.5);
+    }
+    50% {
+      text-shadow: 3px -1px 0 rgba(255,0,0,.5), 1px -2px 0 rgba(0,255,0,.5), +2px 3px 0 rgba(0,0,255,.5);
+    }
+    99% {
+      text-shadow: 3px -1px 0 rgba(255,0,0,.5), 1px -2px 0 rgba(0,255,0,.5), +2px 3px 0 rgba(0,0,255,.5);
+    }
+    100% {
+      text-shadow: -1px 1px 0 rgba(255,0,0,.5), -1px -2px 0 rgba(0,255,0,.5), -2px -1px 0 rgba(0,0,255,.5);
+    }
+  }
 
-.social-icon:hover {
-  transform: scale(1.2);
-}
+  /* Tagline Styling */
+  .sub-caption {
+    font-size: 15px;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--primary);
+    margin-bottom: 25px;
+    min-height: 18px;
+    text-shadow: 0 0 8px rgba(0, 255, 120, 0.4);
+  }
 
-/* Bottom Metallic Shield/Footer bar pieces */
-.bottom-decor {
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  height: 60px;
-  pointer-events: none;
-}
+  /* Neon Minimalist Social Layout Dock */
+  .social-dock {
+    background: rgba(4, 6, 10, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 14px 28px;
+    display: inline-flex;
+    gap: 28px;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: border 0.3s;
+  }
 
-/* Modern Neon Digital Bottom View Counter */
-.counter-badge {
-  position: absolute;
-  bottom: -5px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: #111216;
-  border: 2px solid #4a1534;
-  border-bottom: none;
-  padding: 6px 20px;
-  border-radius: 12px 12px 0 0;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
-  z-index: 6;
-}
+  .social-dock:hover {
+    border-color: rgba(0, 255, 120, 0.3);
+  }
 
-.counter-badge .count-num {
-  font-family: 'Courier New', monospace;
-  color: #00ff78;
-  font-weight: bold;
-  font-size: 16px;
-  text-shadow: 0 0 6px rgba(0,255,120,0.8);
-}
+  .social-icon {
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
 
-.counter-badge svg {
-  fill: #858894;
-  width: 16px;
-  height: 16px;
-}
+  .social-icon svg {
+    fill: #ffffff;
+    opacity: 0.7;
+    width: 100%;
+    height: 100%;
+    transition: fill 0.2s, opacity 0.2s, filter 0.2s;
+  }
+
+  .social-icon:hover {
+    transform: scale(1.25) translateY(-2px);
+  }
+
+  .social-icon:hover svg {
+    opacity: 1;
+    fill: var(--accent);
+    filter: drop-shadow(0 0 8px var(--accent));
+  }
+
+  /* Modern Neon Digital Bottom View Counter */
+  .counter-badge {
+    background: #090a0d;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 18px;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+    font-size: 13px;
+  }
+
+  .counter-badge .count-num {
+    font-family: 'Courier New', monospace;
+    color: var(--primary);
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-shadow: 0 0 6px rgba(0,255,120,0.6);
+  }
+
+  .counter-badge svg {
+    fill: #666973;
+    width: 14px;
+    height: 14px;
+  }
+
+  /* Responsive Scaling tweaks for smaller desktop windows or mobile ports */
+  @media (max-height: 600px) {
+    .card-wrapper { transform: scale(0.85); }
+  }
 </style>
 </head>
 <body>
@@ -252,65 +319,27 @@ body {
   <source src="bg.mp4" type="video/mp4">
 </video>
 
-<!-- High End Metallic Outer Frame Wrapper -->
 <div class="card-wrapper">
   <div class="card">
     
-    <!-- Rotating Swords/Runic Magic Ring Overlay Decor -->
-    <div class="decor-wrap">
-      <svg class="zoro-ring" viewBox="0 0 200 200">
-        <!-- Magic Circle Rings -->
-        <circle cx="100" cy="100" r="82" fill="none" stroke="#00ff78" stroke-width="2" stroke-dasharray="12 6" opacity="0.4"/>
-        <circle cx="100" cy="100" r="76" fill="none" stroke="#00ff78" stroke-width="3" opacity="0.8"/>
-        <circle cx="100" cy="100" r="66" fill="none" stroke="#00ff78" stroke-width="1.5" stroke-dasharray="4 4" opacity="0.6"/>
-        
-        <!-- Zoro Sword 1: Wado Ichimonji Cross -->
-        <g transform="translate(100,100) rotate(45)">
-          <path d="M-3,-95 L3,-95 L2,-60 L-2,-60 Z" fill="#ffffff" stroke="#00ff78" stroke-width="1"/>
-          <circle cx="0" cy="-60" r="6" fill="#dec15e"/>
-          <rect x="-1" y="-60" width="2" height="120" fill="#e1e1e1" opacity="0.3"/>
-        </g>
-        
-        <!-- Zoro Sword 2: Sandai Kitetsu Cross -->
-        <g transform="translate(100,100) rotate(135)">
-          <path d="M-3,-95 L3,-95 L2,-60 L-2,-60 Z" fill="#b02525" stroke="#00ff78" stroke-width="1"/>
-          <path d="M-7,-60 Q0,-64 7,-60 Q0,-56 -7,-60" fill="#dec15e"/>
-          <rect x="-1" y="-60" width="2" height="120" fill="#e1e1e1" opacity="0.3"/>
-        </g>
-        
-        <!-- Zoro Sword 3: Shusui Cross -->
-        <g transform="translate(100,100) rotate(270)">
-          <path d="M-3,-95 L3,-95 L2,-60 L-2,-60 Z" fill="#1c1b21" stroke="#bc2626" stroke-width="1"/>
-          <circle cx="0" cy="-60" r="7" fill="#dec15e" stroke="#bc2626" stroke-width="1"/>
-          <rect x="-1" y="-60" width="2" height="120" fill="#e1e1e1" opacity="0.3"/>
-        </g>
-
-        <!-- Dynamic runic markings around frame -->
-        <text x="95" y="30" fill="#00ff78" font-size="10" font-weight="bold" font-family="monospace">⚔</text>
-        <text x="165" y="105" fill="#00ff78" font-size="10" font-weight="bold" font-family="monospace">Z</text>
-        <text x="95" y="180" fill="#00ff78" font-size="10" font-weight="bold" font-family="monospace">⚔</text>
-        <text x="25" y="105" fill="#00ff78" font-size="10" font-weight="bold" font-family="monospace">O</text>
-      </svg>
+    <div class="pfp-container">
+      <div class="cyber-ring"></div>
+      <div class="pfp-holder">
+        <img class="pfp" src="pfp.png" alt="Profile Picture">  
+      </div>
     </div>
 
-    <!-- Centered Avatar -->
-    <div class="pfp-holder">
-      <img class="pfp" src="pfp.png" alt="Profile Picture">  
-    </div>
-
-    <!-- Main Content Area -->
     <div class="content-area">
-      <div class="name">itsme</div>
-      <div class="sub-caption">chill gng</div>
+      <div class="name" id="glitch-name">itsme</div>
+      <div class="sub-caption" id="typing-text"></div>
 
-      <!-- Neon Green Docked Social Row Container -->
       <div class="social-dock">
         <a class="social-icon" href="https://youtube.com" target="_blank" title="YouTube">
-          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93 $.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
         </a>
         
         <a class="social-icon" href="https://instagram.com" target="_blank" title="Instagram">
-          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204 0.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/></svg>
         </a>
         
         <a class="social-icon" href="https://discord.com" target="_blank" title="Discord">
@@ -319,7 +348,6 @@ body {
       </div>
     </div>
 
-    <!-- Bottom Digital Counter Badge Docked into the frame -->
     <div class="counter-badge">
       <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
       <span class="count-num">003</span>
@@ -329,6 +357,7 @@ body {
 </div>
 
 <script>
+// Smoothly triggers audio-visual layers upon interactive permission
 function enterSite() {
   const enterScreen = document.getElementById("enter-screen");
   const video = document.getElementById("bg-video");
@@ -336,13 +365,41 @@ function enterSite() {
   enterScreen.style.opacity = "0";
   setTimeout(() => {
     enterScreen.style.visibility = "hidden";
-  }, 800);
+    startTypingEffect();
+  }, 600);
 
   video.muted = false;
-  video.volume = 0.4;
+  video.volume = 0.3;
   video.play().catch(err => {
-    console.log("Video playback handled safely.", err);
+    console.log("Audio presentation handled safely.", err);
   });
+}
+
+// Matrix/Cyberpunk Style automated text decoder effect for the tagline
+function startTypingEffect() {
+  const targetText = "chill gng";
+  const container = document.getElementById("typing-text");
+  const chars = "XØ█▓▒░▄█▀🤖⚡✨⚔";
+  let iterations = 0;
+  
+  const interval = setInterval(() => {
+    container.innerText = targetText
+      .split("")
+      .map((letter, index) => {
+        if(index < iterations) {
+          return targetText[index];
+        }
+        return chars[Math.floor(Math.random() * chars.length)];
+      })
+      .join("");
+    
+    if(iterations >= targetText.length) {
+      clearInterval(interval);
+      container.innerText = targetText; // Ensure exact final text match
+    }
+    
+    iterations += 1 / 3;
+  }, 40);
 }
 </script>
 
